@@ -15,6 +15,8 @@ public class OrdenaStrings {
 		
 		
 		palavras.forEach(System.out::println);
+		
+		new Thread(() -> System.out.println("Executando um Runnable")).start();
 	}
 
 }
