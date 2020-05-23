@@ -8,15 +8,17 @@ public class TesteEnvioNaoBloqueante {
 
 	public static void main(String[] args) {
 		NotaFiscal primeiraNotaFiscal = new NotaFiscal("João", 39.99, LocalDate.now());
+		NotaFiscal primeiraSegunda = new NotaFiscal("Vinicius", 50.99, LocalDate.now());
+		NotaFiscal primeiraTerceira = new NotaFiscal("Yasmin", 40.99, LocalDate.now());
 		
 		
 		SubmissionPublisher<NotaFiscal> publisher = new SubmissionPublisher<>();
+		NotaFiscalSubscriber subscriber = new NotaFiscalSubscriber();
 		
-		NotaFiscalWSClient nfwsc = new NotaFiscalWSClient();
-		
-		publisher.consume(nfwsc::enviar);
-		
+		publisher.subscribe(subscriber);
 		publisher.submit(primeiraNotaFiscal);
+		publisher.submit(primeiraSegunda);
+		publisher.submit(primeiraTerceira);
 		System.out.println("Você irá receber a nota fiscal no seu e-mail");
 		
 		Scanner scan = new Scanner(System.in);
