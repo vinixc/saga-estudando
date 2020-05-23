@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 public class OrdenaStrings {
 	
@@ -10,6 +12,12 @@ public class OrdenaStrings {
 		palavras.add("caelum");
 		
 		palavras.sort((s1,s2) -> Integer.compare(s1.length(), s2.length()) );
+		
+		palavras.sort((s1,s2) -> s1.length() - s2.length());
+		
+		Function<String, Integer> funcao = String::length;
+		Comparator<String> comparator = Comparator.comparing(funcao);
+		palavras.sort(comparator);
 		
 		System.out.println(palavras);
 		
