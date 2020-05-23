@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 
 class Curso {
 	
@@ -34,14 +37,38 @@ public class ExemploCursos{
 		cursos.sort(Comparator.comparing(Curso::getAlunos));
 //		cursos.forEach(c -> System.out.println(c.getNome()));
 		
-		cursos.stream()
+		List<Curso> resultados = cursos.stream()
 			.filter(c -> c.getAlunos() >= 100)
-			.forEach(c -> System.out.println(c.getNome()));
+			.collect(Collectors.toList());
+		
+		resultados.parallelStream()
+				.collect(Collectors.toMap(
+						c -> c.getNome(),
+						c -> c.getAlunos()))
+				.forEach((nome, alunos) -> System.out.println(nome + " tem " + alunos + " alunos "));
+		
 		
 		int soma = cursos.stream()
 			.filter(c -> c.getAlunos() >= 100)
 			.mapToInt(Curso::getAlunos).sum();
 		
+		OptionalDouble media = cursos.stream()
+				.filter(c -> c.getAlunos() >= 100)
+				.mapToDouble(Curso::getAlunos).average();
+		
+		System.out.println(media.orElse(0.0));
+		
 		System.out.println(soma);
+		
+		Optional<Curso> optionalCurso = cursos.stream()
+			.filter(c -> c.getAlunos() >= 100)
+			.findAny();
+		
+		Curso curso = optionalCurso.orElse(null);
+		System.out.println(curso.getNome());
+		
+		optionalCurso.ifPresent(c -> System.out.println(c.getNome()));
+		
+		
 	}
 }
