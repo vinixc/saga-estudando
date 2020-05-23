@@ -3,6 +3,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 
+import static java.util.Comparator.comparing;
+
 public class OrdenaStrings {
 	
 	public static void main(String[] args) {
@@ -13,7 +15,7 @@ public class OrdenaStrings {
 		
 		palavras.sort((s1,s2) -> Integer.compare(s1.length(), s2.length()) );
 		
-		palavras.sort((s1,s2) -> s1.length() - s2.length());
+		palavras.sort(comparing(String::length));
 		
 		Function<String, Integer> funcao = String::length;
 		Comparator<String> comparator = Comparator.comparing(funcao);
