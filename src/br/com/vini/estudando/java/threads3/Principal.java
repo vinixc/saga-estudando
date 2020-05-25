@@ -9,6 +9,7 @@ public class Principal {
 		Thread convidado1 = new Thread(new TarefaNumero1(banheiro), "Joao");
 		Thread convidado2 = new Thread(new TarefaNumero2(banheiro), "Pedro");
 		Thread limpeza = new Thread(new TarefaLimpeza(banheiro), "Limpeza");
+		limpeza.setDaemon(true);
 //		Thread convidado3 = new Thread(new TarefaNumero1(banheiro), "Claudio");
 //		Thread convidado4 = new Thread(new TarefaNumero2(banheiro), "Jose");
 		

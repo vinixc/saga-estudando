@@ -7,19 +7,22 @@ public class Banheiro {
 	public void fazNumero1() {
 		String nome = Thread.currentThread().getName();
 		
-		System.out.println(nome + " batendo na porta.");
 		synchronized (this) {
 			try {
+				System.out.println(nome + " batendo na porta.");
 
 				System.out.println(nome + " Entrando no banheiro");
 				
-				if(ehSujo) {
+				while(ehSujo) {
 					esperaLaFora(nome);
 				}
 				
 				System.out.println(nome + " fazendo coisa rapida");
 
-				Thread.sleep(5000);
+				dormeUmPouco(5000);
+				
+				this.ehSujo = true;
+				
 				System.out.println(nome + " dando descarga");
 				System.out.println(nome + " lavando a mao");
 				System.out.println(nome + " saindo do banheiro");
@@ -32,18 +35,21 @@ public class Banheiro {
 	public void fazNumero2() {
 		String nome = Thread.currentThread().getName();
 		
-		System.out.println(nome + " batendo na porta.");
 		synchronized (this) {
 			try {
+				System.out.println(nome + " batendo na porta.");
 				System.out.println(nome + " entrando no banheiro");
 				
-				if(ehSujo) {
+				while(ehSujo) {
 					esperaLaFora(nome);
 				}
 				
 				System.out.println(nome + " fazendo coisa demorada");
 
-				Thread.sleep(10000);
+				dormeUmPouco(10000);
+				
+				this.ehSujo = true;
+				
 				System.out.println(nome + " dando descarga");
 				System.out.println(nome + " lavando a mao");
 				System.out.println(nome + " saindo do banheiro");
@@ -52,12 +58,16 @@ public class Banheiro {
 			}
 		}
 	}
+
+	private void dormeUmPouco(long millis) throws InterruptedException {
+		Thread.sleep(millis);
+	}
 	
 	public void limpa() {
 		String nome = Thread.currentThread().getName();
-		System.out.println(nome + " batendo na porta.");
 		
 		synchronized (this) {
+			System.out.println(nome + " batendo na porta.");
 			System.out.println(nome + " Entrando no banheiro");
 			
 			if(!ehSujo) {
