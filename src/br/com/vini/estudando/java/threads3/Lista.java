@@ -9,11 +9,11 @@ public class Lista {
     	this.elementos[indice] = elemento;
         this.indice++;
         
-        try {
-			Thread.sleep(5);
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
-		}
+//        try {
+//			Thread.sleep(5);
+//		} catch (InterruptedException e) {
+//			throw new RuntimeException(e);
+//		}
         
         if(this.indice == this.elementos.length) {
         	System.out.println("Lista cheia Inicia a impressao ai tioooo");
@@ -34,4 +34,7 @@ public class Lista {
         return this.elementos[posicao];
     }
 
+	public boolean estaCheia() {
+		return this.indice == this.tamanho();
+	}
 }
