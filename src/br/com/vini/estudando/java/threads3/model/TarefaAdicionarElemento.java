@@ -1,13 +1,13 @@
 package br.com.vini.estudando.java.threads3.model;
 
-import br.com.vini.estudando.java.threads3.Lista;
+import java.util.List;
 
 public class TarefaAdicionarElemento implements Runnable {
 
-	private Lista lista;
+	private List<String> lista;
 	private int numeroThread;
 
-	public TarefaAdicionarElemento(Lista lista, int numeroThread) {
+	public TarefaAdicionarElemento(List<String> lista, int numeroThread) {
 		this.lista = lista;
 		this.numeroThread = numeroThread;
 	}
@@ -16,7 +16,7 @@ public class TarefaAdicionarElemento implements Runnable {
 	public void run() {
 		
 		for (int i = 0; i < 100; i++) {
-			lista.adicionaElementos("Thread  " +numeroThread + " - " + i);
+			lista.add("Thread  " +numeroThread + " - " + i);
 		}
 
 	}
