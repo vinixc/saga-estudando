@@ -8,6 +8,22 @@ public class Lista {
     public synchronized void adicionaElementos(String elemento) {
     	this.elementos[indice] = elemento;
         this.indice++;
+        
+        try {
+			Thread.sleep(5);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+        
+        if(this.indice == this.elementos.length) {
+        	System.out.println("Lista cheia Inicia a impressao ai tioooo");
+        	try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+        	this.notify();
+        }
     } 
 
     public int tamanho() {
