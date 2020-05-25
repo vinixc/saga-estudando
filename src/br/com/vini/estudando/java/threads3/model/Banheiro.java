@@ -53,6 +53,33 @@ public class Banheiro {
 		}
 	}
 	
+	public void limpa() {
+		String nome = Thread.currentThread().getName();
+		System.out.println(nome + " batendo na porta.");
+		
+		synchronized (this) {
+			System.out.println(nome + " Entrando no banheiro");
+			
+			if(!ehSujo) {
+				System.out.println(nome + " não esta sujo, vou sair.");
+				return;
+			}
+			
+			System.out.println(nome + " Limpando banheiro");
+			this.ehSujo = false;
+			
+			try {
+				Thread.sleep(13000);
+			}catch(InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+			
+			this.notifyAll();
+			System.out.println(nome + " saindo do banheiro");
+		}
+		
+	}
+	
 	private void esperaLaFora(String nome) throws InterruptedException {
 		System.out.println(nome + ", eca, banheiro ta sujo");
 		this.wait();
