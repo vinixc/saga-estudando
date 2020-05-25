@@ -2,6 +2,8 @@ package br.com.vini.estudando.java.threads3.model;
 
 public class Banheiro {
 	
+	private boolean ehSujo = true;
+	
 	public void fazNumero1() {
 		String nome = Thread.currentThread().getName();
 		
@@ -10,6 +12,11 @@ public class Banheiro {
 			try {
 
 				System.out.println(nome + " Entrando no banheiro");
+				
+				if(ehSujo) {
+					esperaLaFora(nome);
+				}
+				
 				System.out.println(nome + " fazendo coisa rapida");
 
 				Thread.sleep(5000);
@@ -21,7 +28,7 @@ public class Banheiro {
 			}
 		}
 	}
-	
+
 	public void fazNumero2() {
 		String nome = Thread.currentThread().getName();
 		
@@ -29,6 +36,11 @@ public class Banheiro {
 		synchronized (this) {
 			try {
 				System.out.println(nome + " entrando no banheiro");
+				
+				if(ehSujo) {
+					esperaLaFora(nome);
+				}
+				
 				System.out.println(nome + " fazendo coisa demorada");
 
 				Thread.sleep(10000);
@@ -39,5 +51,10 @@ public class Banheiro {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	
+	private void esperaLaFora(String nome) throws InterruptedException {
+		System.out.println(nome + ", eca, banheiro ta sujo");
+		this.wait();
 	}
 }
