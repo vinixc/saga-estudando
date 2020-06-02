@@ -1,6 +1,7 @@
 package br.com.vini.estudando.servidor;
 
 import java.net.Socket;
+import java.util.Scanner;
 
 public class DistribuirTarefas implements Runnable{
 
@@ -15,10 +16,18 @@ public class DistribuirTarefas implements Runnable{
 		try {
 			
 			System.out.println("Aceitando novo cliente na porta: " + socket.getPort());
-			Thread.sleep(20000);
+			
+			Scanner entradaCliente = new Scanner(socket.getInputStream());
+			
+			while(entradaCliente.hasNextLine()) {
+				String comando = entradaCliente.nextLine();
+				System.out.println(comando);
+			}
+			
+			entradaCliente.close();
 		
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 		
 	}
