@@ -1,12 +1,11 @@
 package br.com.vini.estudando.servidor;
 
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ServidorTarefa {
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		
 		System.out.println("INICIANDO SERVIDOR...");
 		ServerSocket servidor = new ServerSocket(12345);
@@ -14,6 +13,10 @@ public class ServidorTarefa {
 		while(true) {
 			Socket socket = servidor.accept();
 			System.out.println("Aceitando novo cliente na porta " + socket.getPort());
+			
+			DistribuirTarefas distribuirTarefas = new DistribuirTarefas(socket);
+			Thread threadCliente = new Thread(distribuirTarefas);
+			threadCliente.start();
 		}
 		
 	}

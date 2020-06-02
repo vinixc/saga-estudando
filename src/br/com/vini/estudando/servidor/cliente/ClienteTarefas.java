@@ -1,6 +1,7 @@
 package br.com.vini.estudando.servidor.cliente;
 
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ClienteTarefas {
 	
@@ -8,6 +9,9 @@ public class ClienteTarefas {
 		Socket socket = new Socket("localhost", 12345);
 		
 		System.out.println("Conexao estabelecida...");
+		
+		Scanner teclado = new Scanner(System.in);
+		teclado.nextLine();
 		
 		socket.close();
 	}
