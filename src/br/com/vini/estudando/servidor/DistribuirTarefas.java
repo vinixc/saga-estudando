@@ -44,8 +44,7 @@ public class DistribuirTarefas implements Runnable{
 					Future<String> futureWs = this.threadPool.submit(c2Ws);
 					Future<String> futureBanco = this.threadPool.submit(c2Banco);
 					
-					String resultaWs = futureWs.get();
-					String resultaBanco = futureBanco.get();
+					this.threadPool.submit(new JuntaResultadosFutureWsFutureBanco(futureWs,futureBanco,saidaCliente));
 					break;
 					
 				case "fim":
