@@ -1,5 +1,6 @@
 package br.com.vini.estudando.servidor.cliente;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
@@ -11,15 +12,59 @@ public class ClienteTarefas {
 		
 		System.out.println("Conexao estabelecida...");
 		
-		PrintStream saida = new PrintStream(socket.getOutputStream());
-		saida.println("c1");
+		Thread threadEnviaComando = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					System.out.println("Pode enviar comandos!");
+					PrintStream saida = new PrintStream(socket.getOutputStream());
+					
+					Scanner teclado = new Scanner(System.in);
+					while(teclado.hasNextLine()) {
+
+						String linha =	teclado.nextLine();
+						
+						if(linha.trim().equals("")) {
+							break;
+						}
+						saida.println(linha);
+					}
+					saida.close();
+					teclado.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
 		
-		Scanner teclado = new Scanner(System.in);
-		teclado.nextLine();
+		Thread threadRecebeResposta = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					System.out.println("Recebendo dados do servidor..");
+					Scanner respostaServidor = new Scanner(socket.getInputStream());
+					while(respostaServidor.hasNextLine()) {
+						String linha = respostaServidor.nextLine();
+						System.out.println(linha);
+					}
+					
+					respostaServidor.close();
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+				
+			}
+		});
 		
-		saida.close();
+		threadRecebeResposta.start();
+		threadEnviaComando.start();
+		
+		threadEnviaComando.join();
+		
+		System.out.println("FECHANDO SOCKET DO CLIENTE.");
 		socket.close();
-		teclado.close();
 	}
 
 }
