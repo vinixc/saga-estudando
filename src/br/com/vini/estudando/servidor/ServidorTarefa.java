@@ -11,7 +11,7 @@ public class ServidorTarefa {
 	
 	private ServerSocket servidor;
 	private ExecutorService threadPool;
-	private boolean estaRodando;
+	private volatile boolean estaRodando; //Não utilizando o cache mantido pelas threads.
 
 	public ServidorTarefa() throws IOException {
 		System.out.println("INICIANDO SERVIDOR...");
