@@ -20,7 +20,7 @@ public class ServidorTarefa {
 		this.servidor = new ServerSocket(12345);
 		
 //		ExecutorService threadPool = Executors.newFixedThreadPool(2);
-		this.threadPool = Executors.newCachedThreadPool();
+		this.threadPool = Executors.newFixedThreadPool(4); //newCachedThreadPool();
 		estaRodando = new AtomicBoolean(true);
 //		ScheduledExecutorService poolScheduled = Executors.newScheduledThreadPool(4);
 	}
@@ -37,7 +37,7 @@ public class ServidorTarefa {
 				Socket socket = servidor.accept();
 				System.out.println("Aceitando novo cliente na porta " + socket.getPort());
 				
-				DistribuirTarefas distribuirTarefas = new DistribuirTarefas(socket,this);
+				DistribuirTarefas distribuirTarefas = new DistribuirTarefas(threadPool,socket,this);
 				threadPool.execute(distribuirTarefas);
 				
 				//executamos uma tarefa a cada 60 minutos
