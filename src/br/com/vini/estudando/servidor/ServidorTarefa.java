@@ -20,7 +20,7 @@ public class ServidorTarefa {
 		this.servidor = new ServerSocket(12345);
 		
 //		ExecutorService threadPool = Executors.newFixedThreadPool(2);
-		this.threadPool = Executors.newFixedThreadPool(4); //newCachedThreadPool();
+		this.threadPool = Executors.newFixedThreadPool(4, new FabricaDeThreads()); //newCachedThreadPool();
 		estaRodando = new AtomicBoolean(true);
 //		ScheduledExecutorService poolScheduled = Executors.newScheduledThreadPool(4);
 	}
