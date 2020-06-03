@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ServidorTarefa {
@@ -20,7 +21,8 @@ public class ServidorTarefa {
 		this.servidor = new ServerSocket(12345);
 		
 //		ExecutorService threadPool = Executors.newFixedThreadPool(2);
-		this.threadPool = Executors.newFixedThreadPool(4, new FabricaDeThreads()); //newCachedThreadPool();
+		ThreadFactory defaultFactory = Executors.defaultThreadFactory();
+		this.threadPool = Executors.newFixedThreadPool(4, new FabricaDeThreads(defaultFactory)); //newCachedThreadPool();
 		estaRodando = new AtomicBoolean(true);
 //		ScheduledExecutorService poolScheduled = Executors.newScheduledThreadPool(4);
 	}
