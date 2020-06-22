@@ -1,5 +1,7 @@
 package br.com.vini.estudando.reflection.alurator;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class Alurator {
 	
 	private String pacoteBase;
@@ -8,7 +10,7 @@ public class Alurator {
 		this.pacoteBase = pacoteBase;
 	}
 	
-	public Object execute(String url) {
+	public Object execute(String url) throws IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//processa a requisicao executando o metodo da classe em questao
 		//exemplo /produto/lista
 		
@@ -22,7 +24,7 @@ public class Alurator {
 			String fullName = pacoteBase + "." + nomeControle;
 			Class<?> classController = Class.forName(fullName);
 			
-			Object instanciaController = classController.newInstance();
+			Object instanciaController = classController.getConstructor().newInstance();
 			System.out.println(instanciaController);
 			
 			return null;

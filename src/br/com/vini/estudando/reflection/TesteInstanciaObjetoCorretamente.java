@@ -1,13 +1,10 @@
 package br.com.vini.estudando.reflection;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import br.com.vini.estudando.reflection.controller.SubControle;
 
 public class TesteInstanciaObjetoCorretamente {
 	
-	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException {
 		
 		Class<SubControle> subControleClasse1 = SubControle.class;
 		
@@ -20,15 +17,24 @@ public class TesteInstanciaObjetoCorretamente {
 //		Constructor<SubControle> construtorSubControle
 //									= subControleClasse1.getConstructor(String.class);
 		
-		Constructor<SubControle> construtorSubControle
-									= subControleClasse1.getDeclaredConstructor();
+//		Constructor<SubControle> construtorSubControle
+//									= subControleClasse1.getDeclaredConstructor();
+//		
+//		System.out.println(construtorSubControle);
+//		
+//		construtorSubControle.setAccessible(true);
+//		SubControle subControle = construtorSubControle.newInstance();
+//		
+//		System.out.println(subControle);
 		
-		System.out.println(construtorSubControle);
+//		try {
+//			controleClasse1.getDeclaredConstructor().newInstance();
+//		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+//				| NoSuchMethodException | SecurityException e) {
+//			e.printStackTrace();
+//		}
 		
-		construtorSubControle.setAccessible(true);
-		SubControle subControle = construtorSubControle.newInstance();
-		
-		System.out.println(subControle);
+//		controleClasse1.newInstance();
 	}
 
 }
