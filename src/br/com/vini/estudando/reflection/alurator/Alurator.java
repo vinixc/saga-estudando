@@ -19,8 +19,17 @@ public class Alurator {
 		Request request = new Request(url);
 
 		String nomeControle = request.getNomeControle();
-
-		Object instanciaController = new Reflexao().refleteClasse(pacoteBase +"."+ nomeControle).getConstrutorPadrao()
+		String nomeMetodo = request.getNomeMetodo();
+		
+//		Object instanciaController = new Reflexao()
+//				.refleteClasse(pacoteBase +"."+ nomeControle)
+//				.getConstrutorPadrao()
+//				.invoca();
+		
+		Object retorno = new Reflexao()
+				.refleteClasse(pacoteBase +"."+ nomeControle)
+				.criaInstancia()
+				.getMetodo(nomeMetodo)
 				.invoca();
 
 //			String fullName = pacoteBase + "." + nomeControle;
@@ -28,8 +37,8 @@ public class Alurator {
 //			
 //			Object instanciaController = classController.getConstructor().newInstance();
 		
-		System.out.println(instanciaController);
+		System.out.println(retorno);
 
-		return null;
+		return retorno;
 	}
 }
