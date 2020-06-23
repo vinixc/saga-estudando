@@ -1,9 +1,19 @@
 package br.com.vini.estudando.reflection.modelo;
 
+import br.com.vini.estudando.reflection.anotacao.NomeTagXml;
+
+@NomeTagXml("product")
 public class Produto {
+	
+	@NomeTagXml("n")
 	private String nome;
+	
+	@NomeTagXml("v")
 	private double valor;
+	
+	@NomeTagXml("m")
 	private String marca;
+	
 	public Produto(String nome, double valor, String marca) {
 		this.nome = nome;
 		this.valor = valor;
